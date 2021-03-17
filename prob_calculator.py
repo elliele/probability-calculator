@@ -1,6 +1,7 @@
+# Created by Ellie Le at 3/5/2021
+
 import copy
 import random
-# Consider using the modules imported above.
 from copy import deepcopy
 from collections import Counter
 
@@ -38,21 +39,35 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         for _ in range(v):
             expected_balls_list.append(k)
 
-
-
+    # loop through the number of experiments
     for i in range(num_experiments):
-        copyhat = copy.deepcopy(hat)
-        draw_list = copyhat.draw(num_balls_drawn)
-        expected_balls_list = Counter(expected_balls_list)
-        draw_list = Counter(draw_list)
+        copyhat = copy.deepcopy(hat) # copy the hat contents
+        draw_list = copyhat.draw(num_balls_drawn) # draw ball from hat
 
-        if expected_balls_list&draw_list == expected_balls:
+        expected_balls_list = Counter(expected_balls_list) # count the number of color ball in expected list
+        #print(expected_balls_list)
+        draw_list = Counter(draw_list) # count the number of color ball during experiment
+        #print(draw_list)
+
+        if expected_balls_list&draw_list == expected_balls: # check if the number of expected balls is the same
             count += 1
- 
-
 
     probability = count/num_experiments
     return probability
+
+
+'''Test
+
+hat = Hat(black=6, red=4, green=3)
+hat.draw(2)
+probability = experiment(hat=hat,
+                  expected_balls={"red":2,"green":1},
+                  num_balls_drawn=5,
+                  num_experiments=10)
+'''
+
+
+
 
 
 
